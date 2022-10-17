@@ -6,26 +6,22 @@ $name=$_POST['names'];
 $pass=$_POST['passwords'];
 $result = $cons -> query("select * from form where name='$name' AND password = '$pass'");
                if(mysqli_num_rows($result) > 0){
+                  session_start();
                while($rows = $result -> fetch_object()){
-                  $id = $rows -> id;
-                  $name = $rows -> name;
-                  $age = $rows -> age;
-                  $email = $rows -> email;
-                  $password = $rows -> password;
-                  $gender = $rows -> gender;
-                  $country = $rows -> country;
-                  echo "<tr>
-                        <td>$id</td>
-                        <td>$name</td>
-                        <td>$age</td>
-                        <td>$email</td>
-                        <td>$password</td>
-                        <td>$gender</td>
-                        <td>$country</td>
-                  </tr>"; 
+                  $_SESSION['id'] = $rows -> id;
+                  $_SESSION['name'] = $rows -> name;
+                  $_SESSION['age'] = $rows -> age;
+                  $_SESSION['email'] = $rows -> email;
+                  $_SESSION['password'] = $rows -> password;
+                  $_SESSION['gender'] = $rows -> gender;
+                  $_SESSION['country'] = $rows -> country;
+                  
+                  Echo "Login Successfully!";
+                  header("refresh:4;url=render_details.php");
                }
                }else{
-               echo "User not Exists";
+               echo "OOPS !User not Exists";
+               header("refresh:4;url=struc.html");
                }
 ?>
 
